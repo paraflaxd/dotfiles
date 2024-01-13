@@ -1,0 +1,4 @@
+#!/bin/bash
+
+KEY=
+git clone https://paraflaxd:${KEY}@github.com/$1
