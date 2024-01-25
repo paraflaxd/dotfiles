@@ -28,3 +28,5 @@ vim.keymap.set("n", "<leader>P", [["+p]])
 
 -- Makes Ctrl+C works as ESC
 vim.keymap.set("i", "<C-c>", "<Esc>")
+
+vim.keymap.set("t", "<C-n>", function() vim.cmd("stopinsert") end)
