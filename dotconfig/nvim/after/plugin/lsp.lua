@@ -3,7 +3,6 @@ local lsp = require("lsp-zero")
 -- Configure keybinds
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
-
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "H", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vs", function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -54,5 +53,10 @@ lsp.set_preferences({
         info = 'I'
     }
 })
+
+local lspconfig = require('lspconfig')
+lspconfig.vtsls.setup {
+  filetypes = { 'svelte' },
+}
 
 lsp.setup()
