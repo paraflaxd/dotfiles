@@ -1,4 +1,13 @@
 local lsp = require("lsp-zero")
+local lspconfig = require("lspconfig")
+
+
+local lsp_capabilities = vim.lsp.protocol.make_client_capabilities() --or whatever your setup requires
+lsp_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
+lspconfig.svelte.setup {
+    capabilities = lsp_capabilities,
+}
 
 -- Configure keybinds
 lsp.on_attach(function(client, bufnr)

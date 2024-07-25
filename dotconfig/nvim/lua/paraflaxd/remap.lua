@@ -29,4 +29,12 @@ vim.keymap.set("n", "<leader>P", [["+p]])
 -- Makes Ctrl+C works as ESC
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
+-- Exit insert mode in terminal
 vim.keymap.set("t", "<C-n>", function() vim.cmd("stopinsert") end)
+
+-- Add newline in normal mode
+vim.keymap.set("n", "<leader>o", ":<C-u>call append(line('.'), repeat([''], v:count1))<CR>")
+vim.keymap.set("n", "<leader>O", ":<C-u>call append(line('.')-1, repeat([''], v:count1))<CR>")
+
+-- Add newline in insert mode
+vim.keymap.set("i", "<C-m>", "<CR>")

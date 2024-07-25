@@ -1,18 +1,26 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+setopt noincappendhistory
+setopt nosharehistory
+setopt appendhistory
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-source /usr/share/nvm/init-nvm.sh
 export PATH="$HOME/.local/bin":$PATH
 
 # Custom path shit
+export PATH=$PATH:/home/main/.scripts
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_ROOT="/home/main/.dotnet"
 export PATH=$DOTNET_ROOT:$PATH
 export MOZ_ENABLE_WAYLAND=1
 export XDG_SESSION_TYPE=wayland
 export XDG_CURRENT_DESKTOP=sway
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -80,9 +88,11 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(zsh-lazyload)
 
 source $ZSH/oh-my-zsh.sh
+
+lazyload git -- "source $ZSH/plugins/git"
 
 # User configuration
 
