@@ -3,7 +3,7 @@ local lspconfig = require("lspconfig")
 
 
 local lsp_capabilities = vim.lsp.protocol.make_client_capabilities() --or whatever your setup requires
-lsp_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+lsp_capabilities.workspace.didChangeWatchedFiles = false
 
 lspconfig.svelte.setup {
     capabilities = lsp_capabilities,
@@ -11,11 +11,12 @@ lspconfig.svelte.setup {
 
 -- Configure keybinds
 lsp.on_attach(function(client, bufnr)
-    local opts = {buffer = bufnr, remap = false}
+    local opts = { buffer = bufnr, remap = false }
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "H", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vs", function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+    vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
     vim.keymap.set("n", "gn", function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set("n", "gp", function() vim.diagnostic.goto_prev() end, opts)
     vim.keymap.set("n", "<leader>va", function() vim.lsp.buf.code_action() end, opts)
@@ -34,15 +35,15 @@ require('mason-lspconfig').setup({
 })
 
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
     sources = {
-        {name = 'path'},
-        {name = 'nvim_lsp'},
-        {name = 'nvim_lua'},
-        {name = 'luasnip', keyword_length = 2},
-        {name = 'buffer', keyword_length = 3},
+        { name = 'path' },
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lua' },
+        { name = 'luasnip', keyword_length = 2 },
+        { name = 'buffer',  keyword_length = 3 },
     },
     formatting = lsp.cmp_format(),
     mapping = cmp.mapping.preset.insert({
@@ -62,10 +63,5 @@ lsp.set_preferences({
         info = 'I'
     }
 })
-
-local lspconfig = require('lspconfig')
-lspconfig.vtsls.setup {
-  filetypes = { 'svelte' },
-}
 
 lsp.setup()

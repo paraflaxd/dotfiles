@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Move selected row
@@ -39,3 +38,14 @@ vim.keymap.set("n", "<leader>O", ":<C-u>call append(line('.')-1, repeat([''], v:
 
 -- Add newline in insert mode
 vim.keymap.set("i", "<C-m>", "<CR>")
+
+-- brackets {}[], some ugly ass solutions over here
+vim.keymap.set("i", "<C-j>", "{")
+vim.keymap.set("i", "<C-k>", "}")
+vim.keymap.set("i", "<C-l>", "[")
+vim.keymap.set("i", "<F12>", "]")
+
+vim.keymap.set("c", "<C-j>", "{")
+vim.keymap.set("c", "<C-k>", "}")
+vim.keymap.set("c", "<C-l>", "[")
+vim.keymap.set("c", "<F12>", "]")

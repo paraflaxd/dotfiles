@@ -1,12 +1,17 @@
 -- NOTE: Use :so to load the file
-
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
     use 'xiyaowong/transparent.nvim'
 
-    use "nvim-lua/plenary.nvim" -- don't forget to add this one if you don't have it yet!
+    use 'neovim/nvim-lspconfig'
+    use 'MunifTanjim/prettier.nvim'
+
+    use 'nvimtools/none-ls.nvim'
+    use 'jay-babu/mason-null-ls.nvim'
+
+    use "nvim-lua/plenary.nvim"
     use {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
@@ -24,7 +29,6 @@ return require('packer').startup(function(use)
         requires = {
             -- Required.
             "nvim-lua/plenary.nvim",
-
         },
     })
 
