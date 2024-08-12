@@ -10,8 +10,30 @@ return require('packer').startup(function(use)
 
     use 'nvimtools/none-ls.nvim'
     use 'jay-babu/mason-null-ls.nvim'
+    use "hrsh7th/nvim-cmp"
 
-    use "nvim-lua/plenary.nvim"
+    use({ "rambhosale/cmp-bootstrap.nvim",
+        requires = {
+            { "nvim-cmp" },
+        },
+        after = "nvim-cmp",
+        event = "InsertEnter",
+        config = function()
+           local cmp = require("cmp")
+
+           cmp.setup.filetype('html', {
+              sources = cmp.config.sources({
+                 { name = 'cmp_bootstrap' },
+                 -- other sources
+              })
+           })
+        end
+    })
+
+    use({
+        "nvim-lua/plenary.nvim",
+    })
+
     use {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
