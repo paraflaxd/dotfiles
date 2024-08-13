@@ -1,13 +1,23 @@
 local lsp = require("lsp-zero")
 local lspconfig = require("lspconfig")
+local cmp = require('cmp')
 
-
-local lsp_capabilities = vim.lsp.protocol.make_client_capabilities() --or whatever your setup requires
+local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
 lsp_capabilities.workspace.didChangeWatchedFiles = false
 
 lspconfig.svelte.setup {
     capabilities = lsp_capabilities,
 }
+
+cmp.setup.filetype('html', {
+    sources = cmp.config.sources({
+        { name = 'cmp_bootstrap' },
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+    }, {
+        { name = 'buffer' },
+    })
+})
 
 -- Configure keybinds
 lsp.on_attach(function(client, bufnr)
@@ -34,8 +44,8 @@ require('mason-lspconfig').setup({
     },
 })
 
-local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
+require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
     sources = {
@@ -46,12 +56,22 @@ cmp.setup({
         { name = 'buffer',  keyword_length = 3 },
     },
     formatting = lsp.cmp_format(),
+    preselect = 'item',
+    completion = {
+        completeopt = 'menu,menuone,noinsert'
+    },
     mapping = cmp.mapping.preset.insert({
         ['<C-i>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
         ['<C-p>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-e>'] = cmp.mapping.abort(),
         ['<C-Space>'] = cmp.mapping.complete(),
     }),
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
 })
 
 lsp.set_preferences({
