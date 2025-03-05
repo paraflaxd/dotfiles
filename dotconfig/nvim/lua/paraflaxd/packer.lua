@@ -3,27 +3,33 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+    use 'nyoom-engineering/oxocarbon.nvim'
+
     use "windwp/nvim-ts-autotag"
 
     use 'xiyaowong/transparent.nvim'
+    use 'hrsh7th/cmp-nvim-lsp'
 
     use 'neovim/nvim-lspconfig'
     use 'MunifTanjim/prettier.nvim'
 
     use 'nvimtools/none-ls.nvim'
     use 'jay-babu/mason-null-ls.nvim'
-    use "hrsh7th/nvim-cmp"
+
+    use({
+        "hrsh7th/nvim-cmp",
+        requires = {
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-cmdline",
+        }
+    })
 
     use "saadparwaiz1/cmp_luasnip"
     use "rafamadriz/friendly-snippets"
-
-    use({ "rambhosale/cmp-bootstrap.nvim",
-        requires = {
-            { "nvim-cmp" },
-        },
-        after = "nvim-cmp",
-        event = "InsertEnter",
-    })
 
     use({
         "nvim-lua/plenary.nvim",
